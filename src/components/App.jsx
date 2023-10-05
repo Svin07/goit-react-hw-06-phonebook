@@ -1,47 +1,50 @@
-import { nanoid } from 'nanoid';
 import ContactList from './ContsctList/ContactList';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
-const loadingContacts = () => {
-  return JSON.parse(localStorage.getItem('contacts')) || [];
-};
+import { addContact } from 'redux/contactsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFilter } from 'redux/filtersSlice';
 
 export function App() {
-  const [contacts, setContacts] = useState(loadingContacts);
-  const [filter, setFilter] = useState('');
+  const { contacts } = useSelector(store => store);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // console.log(filter);
+  console.log(contacts);
+  // const [contacts, setContacts] = useState(loadingContacts);
+  // const [filter, setFilter] = useState('');
+
+  // useEffect(() => {
+  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
   function createContact(body) {
-    const newContact = {
-      id: nanoid(),
-      ...body,
-    };
-    const isExist = contacts.find(
-      el => el.name.toLowerCase() === body.name.toLowerCase()
-    );
-
-    if (isExist) {
-      alert(`${body.name} is already in contacts.`);
-      return;
-    } else {
-      setContacts(prev => [...prev, newContact]);
-    }
+    // const newContact = {
+    //   id: nanoid(),
+    //   ...body,
+    // };
+    // const isExist = contacts.find(
+    //   el => el.name.toLowerCase() === body.name.toLowerCase()
+    dispatch(addContact(body));
   }
 
-  const filterContact = filterQuery => setFilter(filterQuery);
+  //   if (isExist) {
+  //     alert(`${body.name} is already in contacts.`);
+  //     return;
+  //   } else {
+  //     setContacts(prev => [...prev, newContact]);
+  //   }
+  // }
 
-  const handleDelete = id =>
-    setContacts(prev => prev.filter(contact => contact.id !== id));
+  const filterContact = filterQuery => dispatch(addFilter(filterQuery));
 
-  const getFilterAddContact = () => {
-    return contacts.filter(el => el.name.toLowerCase().includes(filter));
-  };
+  // const handleDelete = id =>
+  //   setContacts(prev => prev.filter(contact => contact.id !== id));
+
+  // const getFilterAddContact = () => {
+  //   return contacts.filter(el => el.name.toLowerCase().includes(filter));
+  // };
 
   return (
     <div>
@@ -60,8 +63,8 @@ export function App() {
         <h2>Contacts</h2>
         <Filter filterContact={filterContact} />
         <ContactList
-          contacts={getFilterAddContact()}
-          handleDelete={handleDelete}
+          contacts={contacts}
+          // handleDelete={handleDelete}
         ></ContactList>
       </div>
     </div>

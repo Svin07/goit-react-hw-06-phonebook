@@ -1,6 +1,5 @@
 import ContactItem from 'components/ContactItem/ContactItem';
 import css from './ContactList.module.css';
-// import { Component } from 'react';
 
 function ContactList({ contacts, handleDelete }) {
   return (
