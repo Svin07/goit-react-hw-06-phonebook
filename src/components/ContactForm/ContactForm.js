@@ -1,9 +1,12 @@
 import css from './ContactForm.module.css';
 import { useState } from 'react';
+import { addContact } from 'redux/contactsSlice';
+import { useDispatch } from 'react-redux';
 
-export default function ContactForm({ createContact }) {
+export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
   const defaultValue = '';
 
   const handleChangeName = ({ target: { value } }) => {
@@ -16,7 +19,7 @@ export default function ContactForm({ createContact }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    createContact({ name, number });
+    dispatch(addContact({ name, number }));
     setName(defaultValue);
     setNumber(defaultValue);
   };

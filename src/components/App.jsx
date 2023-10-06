@@ -2,16 +2,14 @@ import ContactList from './ContsctList/ContactList';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 
-import { addContact } from 'redux/contactsSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { addFilter } from 'redux/filtersSlice';
+// import { addContact } from 'redux/contactsSlice';
+
+// import { addFilter } from 'redux/filtersSlice';
 
 export function App() {
-  const { contacts } = useSelector(store => store);
-  const dispatch = useDispatch();
+  // const { contacts, filter } = useSelector(store => store);
+  // const dispatch = useDispatch();
 
-  // console.log(filter);
-  console.log(contacts);
   // const [contacts, setContacts] = useState(loadingContacts);
   // const [filter, setFilter] = useState('');
 
@@ -19,15 +17,9 @@ export function App() {
   //   localStorage.setItem('contacts', JSON.stringify(contacts));
   // }, [contacts]);
 
-  function createContact(body) {
-    // const newContact = {
-    //   id: nanoid(),
-    //   ...body,
-    // };
-    // const isExist = contacts.find(
-    //   el => el.name.toLowerCase() === body.name.toLowerCase()
-    dispatch(addContact(body));
-  }
+  // function createContact(body) {
+  //   dispatch(addContact(body));
+  // }
 
   //   if (isExist) {
   //     alert(`${body.name} is already in contacts.`);
@@ -37,14 +29,10 @@ export function App() {
   //   }
   // }
 
-  const filterContact = filterQuery => dispatch(addFilter(filterQuery));
+  // const filterContact = filterQuery => dispatch(addFilter(filterQuery));
 
   // const handleDelete = id =>
   //   setContacts(prev => prev.filter(contact => contact.id !== id));
-
-  // const getFilterAddContact = () => {
-  //   return contacts.filter(el => el.name.toLowerCase().includes(filter));
-  // };
 
   return (
     <div>
@@ -58,14 +46,10 @@ export function App() {
         }}
       >
         <h1>Phonebook</h1>
-        <ContactForm createContact={createContact} />
-
+        <ContactForm />
         <h2>Contacts</h2>
-        <Filter filterContact={filterContact} />
-        <ContactList
-          contacts={contacts}
-          // handleDelete={handleDelete}
-        ></ContactList>
+        <Filter />
+        <ContactList></ContactList>
       </div>
     </div>
   );

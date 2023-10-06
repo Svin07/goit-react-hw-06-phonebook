@@ -1,8 +1,13 @@
+import { useDispatch } from 'react-redux';
 import css from './Filter.module.css';
+import { addFilter } from 'redux/filtersSlice';
 
-export default function Filter({ filterContact }) {
+export default function Filter() {
+  // const { filters } = useSelector(store => store);
+  const dispatch = useDispatch();
+
   const handleChange = ({ target: { value } }) => {
-    filterContact(value);
+    dispatch(addFilter(value));
   };
 
   return (
@@ -10,10 +15,9 @@ export default function Filter({ filterContact }) {
       <h6>Find contacts by name</h6>
       <label htmlFor="exampleInputFilter"></label>
       <input
-        type="tel"
         className={css.input}
         id="exampleInputFilter"
-        name="number"
+        name="text"
         onChange={handleChange}
       ></input>
     </div>
