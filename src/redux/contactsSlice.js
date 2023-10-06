@@ -6,9 +6,9 @@ const contactsSlice = createSlice({
   initialState: contactsInitialState,
   reducers: {
     addContact: {
-      prepare: text => {
+      prepare: contacts => {
         const id = nanoid();
-        return { payload: { id, ...text } };
+        return { payload: { id, ...contacts } };
       },
       reducer: (state, action) => {
         state.push(action.payload);

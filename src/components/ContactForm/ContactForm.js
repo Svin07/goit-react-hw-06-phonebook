@@ -1,12 +1,14 @@
 import css from './ContactForm.module.css';
 import { useState } from 'react';
 import { addContact } from 'redux/contactsSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
   const defaultValue = '';
 
   const handleChangeName = ({ target: { value } }) => {
@@ -19,7 +21,17 @@ export default function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(addContact({ name, number }));
+    const isExist = contacts.find(
+      el => el.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (isExist) {
+      alert(`${name} is already in contacts.`);
+      return;
+    } else {
+      dispatch(addContact({ name, number }));
+    }
+
     setName(defaultValue);
     setNumber(defaultValue);
   };
