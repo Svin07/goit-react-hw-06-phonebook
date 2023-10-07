@@ -3,7 +3,6 @@ import css from './Filter.module.css';
 import { addFilter } from 'redux/filtersSlice';
 
 export default function Filter() {
-  // const { filters } = useSelector(store => store);
   const dispatch = useDispatch();
 
   const handleChange = ({ target: { value } }) => {

@@ -9,19 +9,14 @@ function ContactList() {
   const filter = useSelector(getFilter);
 
   const getFilteredContact = () => {
-    return contactsList.filter(el => el.name.toLowerCase().includes(filter));
+    return contactsList.filter(el =>
+      el.name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
 
-  console.log(filter);
-
-  // if (getFilteredContact()) {
-  //   contacts = getFilteredContact;
-  // } else {
-  //   contacts = contactsList;
-  // }
   return (
     <ul className={css.contactlist}>
-      {contactsList.map(contact => (
+      {getFilteredContact().map(contact => (
         <ContactItem key={contact.id} contact={contact} />
       ))}
     </ul>
